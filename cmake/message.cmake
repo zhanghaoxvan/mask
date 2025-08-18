@@ -1,0 +1,6 @@
+function(print_options COMPILER BUILD)
+    message(STATUS "┌─ Mask Language Options ─────────────")
+    message(STATUS "│ Compiler  : ${COMPILER}")
+    message(STATUS "│ Build Type: ${BUILD}")
+    message(STATUS "└─────────────────────────────────────")
+endfunction()
