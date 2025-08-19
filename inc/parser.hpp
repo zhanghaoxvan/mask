@@ -3,7 +3,6 @@
 #include "inc.hpp"
 #include "lexer.hpp"
 #include "ast.hpp"
-#include <stdexcept>
 
 class ErrorReporter {
 public:

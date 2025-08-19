@@ -1,13 +1,6 @@
 #pragma once
 
-#include <string>
-#include <fstream>
-#include <filesystem>
-#include <vector>
-#include <regex>
-#include <stdexcept>
-#include <sstream>
-#include <unordered_set>
+#include "inc.hpp"
 
 class Preprocessor {
 public:

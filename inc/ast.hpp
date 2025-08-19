@@ -3,13 +3,6 @@
 #include "inc.hpp"
 #include "lexer.hpp"
 
-#include <functional>
-#include <string>
-#include <queue>
-#include <vector>
-#include <memory>
-#include <unordered_map>
-
 enum class NodeType {
     // 声明类型
     ModuleDecl,
