@@ -54,7 +54,7 @@ try {
         throw "编译器返回错误（退出码: $LASTEXITCODE）"
     }
     if (Test-Path "$sourceDir/lib$libName.hpp.pch" -PathType Leaf) {
-        Remove-Item "$sourceDir/lib$libName.hpp.pch" -ErrorAction -SilentlyContinue
+        Remove-Item "$sourceDir/lib$libName.hpp.pch" -ErrorAction SilentlyContinue
     }
     Write-Host "编译成功: $IRFile"
     exit 0
