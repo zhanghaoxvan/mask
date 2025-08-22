@@ -7,7 +7,7 @@ std::string Preprocessor::process() {
 }
 
 const std::vector<std::string>& Preprocessor::getDynamicLibraries() const {
-    return dynamicLibraries;
+    return IRLibraries;
 }
 
 void Preprocessor::processImports() {
@@ -37,8 +37,8 @@ void Preprocessor::processImports() {
         sourceCode = match.prefix().str() + processedImportContent + match.suffix().str();
 
         const auto& subLibs = subProcessor.getDynamicLibraries();
-        dynamicLibraries.insert(
-            dynamicLibraries.end(), 
+        IRLibraries.insert(
+            IRLibraries.end(), 
             subLibs.begin(), 
             subLibs.end()
         );
@@ -47,9 +47,8 @@ void Preprocessor::processImports() {
 
 std::filesystem::path Preprocessor::resolveImportFile(const std::string& importName) {
     std::vector<std::filesystem::path> searchPaths = {
-        currentDir / "lib" / (importName + ".ma"),
         currentDir / "lib" / importName / (importName + ".ma"),
-        currentDir / "lib" / "std" / (importName + ".ma") // Mask Standard Libs路径
+        currentDir / "lib" / "std" / importName / (importName + ".ma") // Mask Standard Libs路径
     };
 
     for (const auto& path : searchPaths) {
@@ -62,11 +61,11 @@ std::filesystem::path Preprocessor::resolveImportFile(const std::string& importN
 }
 
 void Preprocessor::processDynamicLibs(const std::string& content, const std::filesystem::path& libDir) {
-    const std::regex dynLibRegex("^\\s*dynamicLib\\s*\\(\"([^\"]+)\"\\)\\s*;.*", std::regex::multiline);
+    const std::regex irLibRegex("^\\s*IRLib\\s*\\(\"([^\"]+)\"\\)\\s*;.*", std::regex::multiline);
     std::smatch match;
     std::string tempContent = content;
 
-    while (std::regex_search(tempContent, match, dynLibRegex)) {
+    while (std::regex_search(tempContent, match, irLibRegex)) {
         std::string libName = match[1].str();
         std::string libPath = getPlatformLibPath(libName, libDir);
 
@@ -74,8 +73,8 @@ void Preprocessor::processDynamicLibs(const std::string& content, const std::fil
             throw std::runtime_error("Dynamic library not found: " + libPath);
         }
 
-        if (std::find(dynamicLibraries.begin(), dynamicLibraries.end(), libPath) == dynamicLibraries.end()) {
-            dynamicLibraries.push_back(libPath);
+        if (std::find(IRLibraries.begin(), IRLibraries.end(), libPath) == IRLibraries.end()) {
+            IRLibraries.push_back(libPath);
         }
 
         tempContent = match.suffix().str();

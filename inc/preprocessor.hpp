@@ -15,7 +15,7 @@ public:
 private:
     std::string sourceCode;
     std::filesystem::path currentDir;
-    std::vector<std::string> dynamicLibraries;
+    std::vector<std::string> IRLibraries;
     std::unordered_set<std::string> processedFiles;
 
     void processImports();

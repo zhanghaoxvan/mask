@@ -40,6 +40,9 @@ void Lexer::initKeywords() {
         { "import",      TokenType::KwImport },
         { "operator",    TokenType::KwOperator },
         { "this",        TokenType::KwThis },
+        { "IRLib",       TokenType::KwIRLib },
+        { "private",     TokenType::KwPrivate },
+        { "public",      TokenType::KwPublic  }
     };
 }
 

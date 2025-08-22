@@ -6,6 +6,7 @@ enum class TokenType {
     KwIf, KwElse, KwWhile, KwFor, KwReturn, KwVar, KwVal, 
     KwTrue, KwFalse, KwConstructor, KwStruct, KwInterface,
     KwImpl, KwFunc, KwModule, KwImport, KwOperator, KwThis,
+    KwIRLib, KwPrivate, KwPublic,
     
     // 字面量
     Identifier, Number, Str,

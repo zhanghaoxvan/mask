@@ -14,12 +14,12 @@
 
 ### **<a id="chinese-content">简体中文</a>**  
 
-### :rocket: 目标
+#### :rocket: 目标
 
 1. 实现Mask语言的构建
 2. 提供完善的包管理器
 
-### :building_construction: 架构
+#### :building_construction: 架构
 
 Mask采用
 ```mermaid
@@ -43,13 +43,19 @@ mask/
 │   ├── lexer.hpp // 词法分析器
 │   ├── parser.hpp // 语法分析器
 │   └── preprocessor.hpp // 预处理器，记录import
-├── lib/
-│   ├── compile.ps1
+├── lib/ // 库
+│   ├── compile.ps1 // 编译
 │   └── std
-│       ├── compile.ps1
-│       ├── fmt.ma
-│       ├── libfmt.c
-│       └── libfmt.so
+│       ├── fmt
+│       │   ├── fmt.ma
+│       │   ├── libfmt.cpp
+│       │   ├── libfmt.hpp
+│       │   └── libfmt.ll
+│       └── str
+│           ├── str.ma
+│           ├── libstr.hpp
+│           ├── libstr.cpp
+│           └── libstr.ll
 └── src/
     ├── ast.cpp
     ├── codegen.cpp
@@ -61,5 +67,55 @@ mask/
 
 ---
 
-### **<a id="english-content">English</a>**  
+#### **<a id="english-content">English</a>**  
 
+#### :rocket: target
+
+1. Implement the construction of the Mask language
+2. Provide a complete package manager
+
+#### :building_construction: Architecture
+
+Mask adopted
+```mermaid
+graph LR
+Source-Code[Source Code] --Lexer--> Token[Token Stream] --Parser--> AST[AST] --CodeGen--> IR[LLVM IR] --LLVM--> Binary[Binary Code]
+```
+Directory tree overview:
+```
+mask/
+├── CMakeLists.txt
+├── LICENSE
+├── README.md
+├── cmake/
+│   └── message.cmake // CMake displays information when compiling
+├── example/
+│   └── main.ma // Syntax examples
+├── inc/
+│   ├── ast.hpp // AST tree
+│   ├── codegen.hpp // LLVM IR generation (todo)
+│   ├── inc.hpp // Required library file
+│   ├── lexer.hpp // Lexical Analyzer
+│   ├── parser.hpp // Grammar Analyzer
+│   └── preprocessor.hpp // Preprocessor, record import
+├── lib/ // library
+│   ├── compile.ps1 // Compilation
+│   └── std
+│   ├── fmt
+│   │   ├── fmt.ma
+│   │   ├── libfmt.cpp
+│   │   ├── libfmt.hpp
+│   │   └── libfmt.ll
+│   └── str
+│       ├── str.ma
+│       ├── libstr.hpp
+│       ├── libstr.cpp
+│       └── libstr.ll
+└── src/
+    ├── ast.cpp
+    ├── codegen.cpp
+    ├── lexer.cpp
+    ├── main.cpp
+    ├── parser.cpp
+    └── preprocessor.cpp
+```

@@ -15,17 +15,17 @@ struct point {
 
 interface pt impl point {
     // constructor不需返回值
-    constructor(x: int, y: int) {
+    public constructor(x: int, y: int) {
         x = this.x
         y = this.y
     }
     // 自定义字符串规则
-    str() -> str {
+    public str() -> str {
         return "{{ {this.x}, {this.y} }}"
         // 如this.x = 1, this.y = 1,
         // 输出{ 1, 1 }
     }
-    operator+(pt y) -> pt {
+    public operator+(pt y) -> pt {
         return pt(this.x + y.x, this.y + y.y)
     }
 }
