@@ -2,7 +2,6 @@ module main // 此句表示main文件，mask将从此文件开始执行
 
 import "math" -> main // 此句将math模块中的内容渗透到main文件中
 import "fmt" -> main
-import "collections" -> main
 
 func addmain(a: int, b: int) -> int {
     return a + b
