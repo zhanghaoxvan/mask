@@ -24,7 +24,7 @@ private:
 class Parser {
 public:
     explicit Parser(std::vector<Token> tokens, ErrorReporter& errorReporter);
-    std::unique_ptr<ASTTree> parse();
+    ASTTree parse();
     
 private:
     struct Scope {
@@ -45,46 +45,7 @@ private:
     bool check(TokenType type) const;
     const Token& consume(TokenType type, const std::string& message);
     void sync();
-    
-    ASTNode::Ptr parseDeclaration();
-    ASTNode::Ptr parseModuleDecl();
-    ASTNode::Ptr parseFunctionDecl();
-    ASTNode::Ptr parseStructDecl();      // todo: parseStructDecl实现
-    ASTNode::Ptr parseInterfaceDecl();   // todo: parseInterfaceDecl实现
-    ASTNode::Ptr parseImplDecl();        // todo: parseImplDecl实现
-    ASTNode::Ptr parseImportDecl();      // todo: parseImportDecl实现
-    ASTNode::Ptr parseConstructorDecl(); // todo: parseConstructorDecl实现
-    ASTNode::Ptr parseOperatorDecl();    // todo: parseOperatorDecl实现
-    ASTNode::Ptr parseParameters();
-    ASTNode::Ptr parseParameter();
-    ASTNode::Ptr parseBlock();
-    ASTNode::Ptr parseStatement();
-    ASTNode::Ptr parseIfStmt();
-    ASTNode::Ptr parseWhileStmt();
-    ASTNode::Ptr parseForStmt();         // todo: parseForStmt实现
-    ASTNode::Ptr parseReturnStmt();
-    ASTNode::Ptr parseVarDecl();
-    ASTNode::Ptr parsePrintStmt();
-    ASTNode::Ptr parseExpression();
-    ASTNode::Ptr parseAssignment();
-    ASTNode::Ptr parseLogicalOr();
-    ASTNode::Ptr parseLogicalAnd();
-    ASTNode::Ptr parseEquality();
-    ASTNode::Ptr parseComparison();
-    ASTNode::Ptr parseTerm();
-    ASTNode::Ptr parseFactor();
-    ASTNode::Ptr parseUnary();
-    ASTNode::Ptr parsePrimary();
-    ASTNode::Ptr parseCall();
-    ASTNode::Ptr parseType();
-    ASTNode::Ptr parseExprStmt();
-    ASTNode::Ptr finishCall(ASTNode::Ptr callee);
-    ASTNode::Ptr parseRangeExpr();
-    ASTNode::Ptr parseInterpolationExpression(const std::string& exprText, int line);
-    std::vector<ASTNode::Ptr> parseStringInterpolation(const Token& stringToken);
-    
     void error(const Token& token, const std::string& message);
-    int getPrecedence(TokenType type) const;
     
 private:
     const std::vector<Token> tokens;
