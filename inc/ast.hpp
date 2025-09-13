@@ -4,6 +4,9 @@
 #include "lexer.hpp"
 
 enum class NodeType {
+    // Top声明
+    TopDecl,
+
     // 声明类型
     ModuleDecl,
     FunctionDecl,
@@ -50,8 +53,8 @@ struct TypeInfo {
 
 struct ASTNode {
     using Ptr = std::unique_ptr<ASTNode>;
-    
-    ASTNode* parent = nullptr;
+    using ParentPtr = std::shared_ptr<ASTNode>;
+    ParentPtr parent = nullptr;
     std::vector<Ptr> children;
     Token token;
     NodeType type;
@@ -64,7 +67,10 @@ struct ASTNode {
 
 struct ASTTree {
     ASTNode::Ptr root;
-    
+    explicit ASTTree(ASTNode::Ptr r = nullptr) : root(std::move(r)) {}
+    operator ASTNode::Ptr() {
+        return std::move(root);
+    }
     void setRoot(ASTNode::Ptr node);
     ASTNode* getRoot() const;
     void clear();

@@ -1,8 +1,8 @@
 #include "parser.hpp"
 #include <algorithm>
 
-ErrorReporter::Error ErrorReporter::report(int line, const std::string& message, const std::string& context) {
-    errors.push_back({line, message, context});
+ErrorReporter::Error ErrorReporter::report(int line, const std::string& message) {
+    errors.push_back({line, message});
     return errors.back();
 }
 
@@ -24,7 +24,8 @@ Parser::Parser(std::vector<Token> tokens, ErrorReporter& errorReporter)
 }
 
 ASTTree Parser::parse() {
-    
+    auto root = parseTopDeclaration();
+    return ASTTree(std::move(root));
 }
 
 void Parser::enterScope(const std::string& name) {
@@ -91,10 +92,41 @@ const Token& Parser::consume(TokenType type, const std::string& message) {
     if (check(type)) return advance();
     
     error(peek(), message);
-    throw std::runtime_error(message);
+    // throw std::runtime_error(message);
 }
 
 void Parser::error(const Token& token, const std::string& message) {
-    errorReporter.report(token.line, message, token.lexeme);
-    throw std::runtime_error("Parse error at line " + std::to_string(token.line) + ": " + message);
+    errorReporter.report(token.line, message);
+    // 不throw
+    // throw std::runtime_error("Parse error at line " + std::to_string(token.line) + ": " + message); 
+}
+
+ASTNode::Ptr Parser::parseTopDeclaration() {
+    // 顶级声明：module声明，import导入，function声明，struct声明，interface声明，impl声明，constructor声明，operator声明，变量声明
+
+    std::vector<ASTNode::Ptr> decls;
+    if (match(TokenType::KwModule)) {
+        decls.push_back(parseModuleDeclaration());
+    } else if (match(TokenType::KwImport)) {
+        decls.push_back(parseImportDeclaration());
+    }
+    return std::make_unique<ASTNode>(new ASTNode(
+        Token(TokenType::Top, "", 0), // 总结点没有行数，记作0
+        NodeType::TopDecl,
+        std::move(decls)
+    ));
+}
+
+ASTNode::Ptr Parser::parseModuleDeclaration() {
+    // module moduleName
+    if (peek().type != TokenType::Identifier) {
+        error(peek(), "Expected module name after 'module'");
+        if (peek().line != 1) {
+            error(peek(), "Module declaration must be at the top of the file");   
+        }
+        return std::make_unique<ASTNode>(new ASTNode(
+            Token(TokenType::KwModule, "module", peek().line),
+            NodeType::ModuleDecl
+        ));
+    }
 }

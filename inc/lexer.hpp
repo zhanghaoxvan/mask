@@ -21,7 +21,7 @@ enum class TokenType {
     Colon, Dot, Tilde,
     
     // 特殊
-    Eof, Error
+    Eof, Error, Top // Top是整个文件的主节点
 };
 
 struct Token {

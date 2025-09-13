@@ -1,3 +1,5 @@
 .vscode/
 build/
-tmp.md
+tmp.*
+inc/test-parser.hpp
+src/test-parser.cpp

@@ -4,10 +4,7 @@ project(mask)
 
 set(CXX_STANDARD 20)
 
-# Find LLVM package and configure include directories
-find_package(LLVM REQUIRED CONFIG)
-message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
-message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
+# Deleted LLVM Dependences
 
 # Include custom CMake modules
 include(${PROJECT_SOURCE_DIR}/cmake/message.cmake)
@@ -61,21 +58,7 @@ add_executable(mask ${srcs})
 # Set target-specific include directories
 target_include_directories(mask PUBLIC
     ${PROJECT_SOURCE_DIR}/inc
-    ${LLVM_INCLUDE_DIRS}
 )
-
-# Set target-specific compile definitions
-target_compile_definitions(mask PUBLIC ${LLVM_DEFINITIONS})
-
-# Link LLVM libraries
-llvm_map_components_to_libnames(llvm_libs 
-    core 
-    irreader 
-    support
-    # Add other LLVM components as needed
-)
-
-target_link_libraries(mask ${llvm_libs})
 
 # Installation configuration
 install(

@@ -9,10 +9,9 @@ public:
     struct Error {
         int line;
         std::string message;
-        std::string context;
     };
     
-    Error report(int line, const std::string& message, const std::string& context = "");
+    Error report(int line, const std::string& message);
     bool hasErrors() const;
     const std::vector<Error>& getErrors() const;
     void clear();
@@ -44,8 +43,11 @@ private:
     bool match(TokenType type);
     bool check(TokenType type) const;
     const Token& consume(TokenType type, const std::string& message);
-    void sync();
     void error(const Token& token, const std::string& message);
+
+    ASTNode::Ptr parseTopDeclaration();
+    ASTNode::Ptr parseModuleDeclaration();
+    ASTNode::Ptr parseImportDeclaration();
     
 private:
     const std::vector<Token> tokens;

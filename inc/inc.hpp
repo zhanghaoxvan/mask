@@ -16,8 +16,3 @@
 #include <sstream>
 #include <unordered_set>
 
-// LLVM 库文件
-#include <llvm/IR/IRBuilder.h>
-#include <llvm/IR/LLVMContext.h>
-#include <llvm/IR/Module.h>
-
