@@ -1,6 +1,6 @@
 # Mask现状
 
-[https://github.com/zhanghaoxvan/mask](Mask)现已迁移至[https://github.com/zhanghaoxvan/Gobol](Gobol).
+[Mask](https://github.com/zhanghaoxvan/mask)现已迁移至[Gobol](https://github.com/zhanghaoxvan/Gobol).
 
 ## Warning Gobol的语法与Mask有差异
 
