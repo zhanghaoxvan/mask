@@ -1,3 +1,9 @@
+# Mask现状
+
+[https://github.com/zhanghaoxvan/mask](Mask)现已迁移至[https://github.com/zhanghaoxvan/Gobol](Gobol).
+
+## Warning Gobol的语法与Mask有差异
+
 # Mask
 <!-- 徽章 -->
 [![License](https://img.shields.io/github/license/zhanghaoxvan/mask.svg)](https://github.com/zhanghaoxvan/mask)
